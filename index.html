@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>giftastic demo</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+</head>
+<body class="bg-secondary text-white">
+    <nav class="navbar navbar-expand-md mb-3 navbar-dark bg-dark">
+            <span class="navbar-brand mr-auto">
+                giftastic demo
+            </span>
+            <div class="input-group my-2 my-md-0 justify-content-end">
+                <div class="input-group-prepend">
+                    <button class="btn btn-outline-secondary" type="button">
+                        +
+                    </button>
+                </div>
+                <input type="text" class="form-control col-4" placeholder="Add a topic">
+            </div>
+            <!--
+            <form class="form-inline my-2 my-md-0">
+                <input type="text" placeholder="Add a topic" class="form-control">
+            </form>
+            -->
+    </nav>
+    <div class="container">
+
+        <div id="topics" class="d-flex flex-row">
+
+                <div id="example" class="btn-group btn-group-sm m-1" role="group">
+                    <button type="button" class="btn btn-dark">-</button>
+                    <button type="button" class="btn btn-outline">example</button>
+                </div>
+                <div id="example" class="btn-group btn-group-sm m-1" role="group">
+                    <button type="button" class="btn btn-dark">-</button>
+                    <button type="button" class="btn btn-outline">example</button>
+                </div>               
+        </div>
+
+        <hr>
+
+        <div id="gif-card-grid" class="d-flex flex-row">
+                <div class="card m-1" style="width:20%">
+                    <div id="tags" class="card-header bg-dark">
+                        in the card header
+                    </div>
+                    <div id="card-gif" class="card-body bg-secondary">
+                        in the card body
+                    </div>
+                </div>
+                <div class="card m-1" style="width:20%">
+                        <div id="tags" class="card-header bg-dark">
+                            in the card header
+                        </div>
+                        <div id="card-gif" class="card-body bg-secondary">
+                            in the card body
+                        </div>
+            </div>
+    </div>
+
+    <hr>
+
+    <script type="text/javascript" src="assets/javascript/app.js"></script>
+</body>
+</html>
