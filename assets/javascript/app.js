@@ -18,9 +18,9 @@ $('document').ready(function() {
 
     // When a topic search term is added, handle the Giphy API call
     $addTopicButton.on('click', function() {
-        
         var searchTerm = $searchBar.val().trim();
         var queryUrl = 'https://api.giphy.com/v1/gifs/search?api_key=' + apiKey + '&limit=' + searchResultLimit + '&q=' + searchTerm;
+
         // clear the user's search term after entering
         $searchBar.val('');
         if ( $contentArea.is(':empty') )
@@ -56,10 +56,6 @@ $('document').ready(function() {
 
         // When a gif is clicked, toggle between animated and still
         $($contentArea).on('click', '.gif', function() {
-            console.log('User clicked ' + $(this).attr('class'));
-
-            var $gifState = $(this).attr('data-state');
-
             if ( $(this).attr('data-state') === 'still' ) {
                 $(this).attr('src', $(this).attr('data-animate'));
                 $(this).attr('data-state', 'animate');
