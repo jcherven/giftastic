@@ -1,6 +1,6 @@
 // https://api.giphy.com/v1/gifs/search?api_key=DGO8o3GLH8FdLjs2Orr9XM48VgDnHxf9&limit=5&q=lemur
 const apiKey = 'DGO8o3GLH8FdLjs2Orr9XM48VgDnHxf9';
-const searchResultLimit = 2;
+const searchResultLimit = 30;
 
 // jquery DOM objects
 $addTopicButton = $('#add-topic-button');
@@ -23,22 +23,18 @@ $('document').ready(function() {
 
         // clear the user's search term after entering
         $searchBar.val('');
-        if ( $contentArea.is(':empty') )
-            $searchBar.attr('placeholder', 'Add a topic');
-        else
-            $searchBar.attr('placeholder', 'Add another topic');
     
         $.ajax({
         url: queryUrl,
         method: "GET"
         }).then(function(response) {
+
             var responseObj = response.data;
 
             // Step through responseObj, create img tags for each gif, and present them in $contentArea
             for ( var key in responseObj ) {
                 var stillUrl = responseObj[key].images.fixed_height_small_still.url;
                 var responseImage = $('<img>');
-                // responseImage.attr('id', key);
                 responseImage.addClass(searchTerm);
                 responseImage.addClass('gif');
                 responseImage.attr('data-state', 'still');
@@ -49,25 +45,25 @@ $('document').ready(function() {
 
                 $contentArea.prepend(responseImage);
             } // End for(key in response.data)
-            
+            $contentArea.prepend('<br>');
             // TODO: Add a new topic button
             
         }); // End AJAX call
 
-        // When a gif is clicked, toggle between animated and still
-        $($contentArea).on('click', '.gif', function() {
-            if ( $(this).attr('data-state') === 'still' ) {
-                $(this).attr('src', $(this).attr('data-animate'));
-                $(this).attr('data-state', 'animate');
-            }
-            else {
-                $(this).attr('src', $(this).attr('data-still'));
-                $(this).attr('data-state', 'still');
-            }
-        }) // End .on(click...)
-
     }) // End $addTopicButton.on(click...)
 
+}); // End $(document).ready()
 
+// When a gif is clicked, toggle between animated and still
+$(document).on('click', '.gif', function() {
+    if ( $(this).attr('data-state') === 'still' ) {
+        $(this).attr('src', $(this).attr('data-animate'));
+        $(this).attr('data-state', 'animate');
+    }
+    else {
+        $(this).attr('src', $(this).attr('data-still'));
+        $(this).attr('data-state', 'still');
+    }
+}) // End .on(click...)
 
-});
+// TODO When remove button on a topic marker is clicked, remove gifs from content area
