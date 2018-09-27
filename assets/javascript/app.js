@@ -18,8 +18,8 @@ $('document').ready(function() {
 
     // When a topic search term is added, handle the Giphy API call
     $addTopicButton.on('click', function() {
-        var searchTerm = $searchBar.val().trim();
-        var queryUrl = 'https://api.giphy.com/v1/gifs/search?api_key=' + apiKey + '&limit=' + searchResultLimit + '&q=' + searchTerm;
+        var $searchTerm = $searchBar.val().trim();
+        var queryUrl = 'https://api.giphy.com/v1/gifs/search?api_key=' + apiKey + '&limit=' + searchResultLimit + '&q=' + $searchTerm;
 
         // clear the user's search term after entering
         $searchBar.val('');
@@ -28,28 +28,42 @@ $('document').ready(function() {
         url: queryUrl,
         method: "GET"
         }).then(function(response) {
+            // TODO add topic button to the topics area
+            var $smushedSearchTerm = $searchTerm.replace(/\s+/, '-');
+            var $newTopicMarker = $('<div>');
+            var $markerMinusButton = $('<button>');
+            var $markerGotoButton = $('<button>');
+
+            $newTopicMarker.attr('id', $smushedSearchTerm);
+            $newTopicMarker.addClass('btn-group btn-group-sm m-1');
+            $newTopicMarker.attr('role', 'group');
+            $newTopicMarker.append($markerMinusButton);
+            $markerMinusButton.attr('type', 'button');
+            $markerMinusButton.addClass('btn btn-dark');
+            $markerMinusButton.text('-');
+            $newTopicMarker.append($markerGotoButton);
+            $markerGotoButton.attr('type', 'button');
+            $markerGotoButton.addClass('btn btn-outline');
+            $markerGotoButton.text($searchTerm);
+
+            $('#topics').append($newTopicMarker);
 
             var responseObj = response.data;
 
             // Step through responseObj, create img tags for each gif, and present them in $contentArea
             for ( var key in responseObj ) {
                 var stillUrl = responseObj[key].images.fixed_height_small_still.url;
-                var responseImage = $('<img>');
-                responseImage.addClass(searchTerm);
-                responseImage.addClass('gif');
-                responseImage.attr('data-state', 'still');
-                responseImage.attr('data-still', responseObj[key].images.fixed_height_small_still.url);
-                responseImage.attr('data-animate', responseObj[key].images.fixed_height_small.url);
-                responseImage.attr('src', stillUrl);
-                // Add attributes for still and animated
+                var $responseImage = $('<img>');
+                $responseImage.addClass($searchTerm);
+                $responseImage.addClass('gif');
+                $responseImage.attr('data-state', 'still');
+                $responseImage.attr('data-still', responseObj[key].images.fixed_height_small_still.url);
+                $responseImage.attr('data-animate', responseObj[key].images.fixed_height_small.url);
+                $responseImage.attr('src', stillUrl);
 
-                $contentArea.prepend(responseImage);
+                $('#gif-grid').prepend($responseImage);
             } // End for(key in response.data)
-            $contentArea.prepend('<br>');
-            // TODO: Add a new topic button
-            
         }); // End AJAX call
-
     }) // End $addTopicButton.on(click...)
 
 }); // End $(document).ready()
